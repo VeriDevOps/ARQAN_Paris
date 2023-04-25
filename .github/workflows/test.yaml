@@ -20,4 +20,4 @@ jobs:
           platform: microsoft_windows_10
           username: ${{ secrets.ARQAN_USER }}
           password: ${{ secrets.ARQAN_PASS }}
-          create-issues: 'true'
+          create-issues: 'false'
