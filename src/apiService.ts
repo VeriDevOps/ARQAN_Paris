@@ -21,7 +21,7 @@ namespace ApiService {
     }
     export async function getSecuritySentences(requirement: string, token: string) {
         console.log('Making call to ARQAN')
-        let response = await axios.post('http://51.250.88.251:8000/api/tasks/sec-req-extract-from-text',
+        let response = await axios.post('http://arqan.softeam-rd.eu/api/tasks/sec-req-extract-from-text',
             {
                 'requirements': requirement
             },
@@ -35,7 +35,7 @@ namespace ApiService {
         const task_id = response.data.task_id
         console.log("Task id: ", task_id)
 
-        response = await axios.get(`http://51.250.88.251:8000/api/tasks/sec-req-extract/${task_id}`, {
+        response = await axios.get(`http://arqan.softeam-rd.eu/api/tasks/sec-req-extract/${task_id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'accept': 'application/json'
@@ -45,7 +45,7 @@ namespace ApiService {
         const startTime = new Date().getTime();
         while (response.status === 202 && new Date().getTime() - startTime < timeout) {
             await new Promise(resolve => setTimeout(resolve, interval)); // Wait for interval before making another request
-            response = await axios.get(`http://51.250.88.251:8000/api/tasks/sec-req-extract/${task_id}`, {
+            response = await axios.get(`http://arqan.softeam-rd.eu/api/tasks/sec-req-extract/${task_id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'accept': 'application/json'
@@ -60,7 +60,7 @@ namespace ApiService {
     }
 
     export async function getRecommendedStigs(requirement: string, platform: string, limit: number, token: string): Promise<Array<any>> {
-        let response = await axios.post('http://51.250.88.251:8000/api/tasks/sec-req-search-db',
+        let response = await axios.post('http://arqan.softeam-rd.eu/api/tasks/sec-req-search-db',
             {
                 'text': requirement,
                 'platform': platform,
@@ -75,7 +75,7 @@ namespace ApiService {
 
         const task_id = response.data.task_id
 
-        response = await axios.get(`http://51.250.88.251:8000/api/tasks/sec-req-search-db/${task_id}`,
+        response = await axios.get(`http://arqan.softeam-rd.eu/api/tasks/sec-req-search-db/${task_id}`,
             {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -87,7 +87,7 @@ namespace ApiService {
         const startTime = new Date().getTime();
         while (response.status === 202 && new Date().getTime() - startTime < timeout) {
             await new Promise(resolve => setTimeout(resolve, interval)); // Wait for interval before making another request
-            response = await axios.get(`http://51.250.88.251:8000/api/tasks/sec-req-extract/${task_id}`, {
+            response = await axios.get(`http://arqan.softeam-rd.eu/api/tasks/sec-req-extract/${task_id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'accept': 'application/json'
