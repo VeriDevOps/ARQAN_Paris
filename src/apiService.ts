@@ -7,7 +7,7 @@ namespace ApiService {
     export async function getToken(username: string, password: string) {
         console.log('Authenticating in ARQAN')
         const response = await axios.post(
-            'http://51.250.88.251:8000/api/auth/sign-up',
+            'http://arqan.softeam-rd.eu/api/auth/sign-up',
             `username=${username}&password=${password}`,
             {
                 headers: {
